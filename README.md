@@ -5,13 +5,13 @@ jQuery plugin to check if element is in viewport.
 I am looking for a jQuery plugin that can detect when an element enters or leaves the viewport, as well as the direction of entry/exit. It is important that the plugin utilizes scroll throttling and has a small JavaScript file size. Additionally, I would like to be able to check when the entire element is in the viewport.
 
 ## Triggers for the element
-- onEnter with direction (top, bottom)
+- onEnter with direction (top, bottom)<br>
   To check, when the element or a part is already entered in viewport
-- onLeft with direction (top, bottom)
-  To check, when the element or a part is left the viewport
+- onLeft with direction (top, bottom)<br>
+  To check, when the element or a part is left the viewport<br>
   *eg.: if you want some animation or style the "reset", but only if it is not visivle anymore.*
-- onWholeInside
-  To check, if the whole element is in the viewport
+- onWholeInside<br>
+  To check, if the whole element is in the viewport<br>
   *eg.: if you want to start an animation only if the whole element is visible.*
 
 ## Why Throttling
