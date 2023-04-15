@@ -29,9 +29,9 @@ $( selector ).exopiteInViewPort({
         // direction = top, bottom
 
         if ( direction == 'top' ) {
-          console.log('Element entered from top');
+            console.log('Element entered from top');
         } else if  ( direction == 'bottom' ) {
-          console.log('Element entered from bottom');
+            console.log('Element entered from bottom');
         }
 
     },
