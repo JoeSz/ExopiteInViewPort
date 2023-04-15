@@ -91,7 +91,7 @@
 
             }
 
-            $(window).on('scroll', $.throttle(settings.throttle, checkViewport));
+            $(window).on('scroll resize', $.throttle(settings.throttle, checkViewport));
             checkViewport();
         });
     };
