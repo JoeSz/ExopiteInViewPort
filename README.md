@@ -26,12 +26,18 @@ For example, imagine a scroll event that triggers a function that calculates the
 $( selector ).exopiteInViewPort({
     onEnter: function(element, direction) {
         // The element is entered the viewport
+        // direction = top, bottom
 
-        console.log('Element entered from ' + direction);
+        if ( direction == 'top' ) {
+          console.log('Element entered from top');
+        } else if  ( direction == 'bottom' ) {
+          console.log('Element entered from bottom');
+        }
 
     },
     onLeave: function(element, direction) {
         // The element is leaved the viewport
+        // direction = top, bottom
 
         console.log('Element left to ' + direction);
 
