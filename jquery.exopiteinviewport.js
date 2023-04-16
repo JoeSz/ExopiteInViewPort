@@ -1,3 +1,10 @@
+/*!
+ * exopiteInViewPort 20230416 - 2023-04-16
+ * https://github.com/JoeSz/ExopiteInViewPort
+ *
+ * Licensed under the MIT license.
+ * http://opensource.org/licenses/MIT
+ */
 ; (function ($, window, document, undefined) {
 
     "use strict";
