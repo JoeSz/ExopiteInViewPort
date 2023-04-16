@@ -130,6 +130,16 @@ $(selector).data('plugin_exopiteInViewPort').destroy();
 
 ```
 
+### CHANGELOG
+
+= 20230416 - 2019-04-16 =
+* Add light version
+* Plugin save instance in element.data
+* Add destroy function
+
+= 20230415 - 2019-04-15 =
+* Initial release
+
 ### LICENSE DETAILS
 
 The GPL license of Sticky anything without cloning it grants you the right to use, study, share (copy), modify and (re)distribute the software, as long as these license terms are retained.
