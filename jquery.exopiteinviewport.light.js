@@ -1,4 +1,16 @@
-(function ($) {
+/*!
+ * exopiteInViewPort 20230416 - 2023-04-16
+ * Light version
+ *
+ * https://github.com/JoeSz/ExopiteInViewPort
+ *
+ * Licensed under the MIT license.
+ * http://opensource.org/licenses/MIT
+ *
+ * Disclaimer
+ * https://www.joeszalai.org/disclaimer/
+ */
+;(function ($) {
 
     $.throttle = function (delay, callback) {
         var timeout = null;

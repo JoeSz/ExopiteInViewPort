@@ -4,6 +4,9 @@
  *
  * Licensed under the MIT license.
  * http://opensource.org/licenses/MIT
+ *
+ * Disclaimer
+ * https://www.joeszalai.org/disclaimer/
  */
 ; (function ($, window, document, undefined) {
 
