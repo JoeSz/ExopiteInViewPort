@@ -70,7 +70,8 @@ $( selector ).exopiteInViewPort({
 });
 ```
 
-### Normal version
+### Normal
+jquery.exopiteinviewport.min.js
 ```php
 var selector = '.my-class';
 var exopiteInViewPortSettings = {
