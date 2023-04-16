@@ -77,6 +77,11 @@
 
                 } else {
                     if ($this.data('inviewport') || $this.data('partlyinviewport')) {
+                        // if scroll is too fast, in the "enter" section the onWholeInside false do not have a time to call.
+                        if ($this.data('inviewport')) {
+                            settings.onWholeInside.call(this, $this, false);
+                        }
+
                         $this.data('inviewport', false);
                         $this.data('partlyinviewport', false);
 
@@ -91,7 +96,7 @@
 
             }
 
-            $(window).on('scroll resize', $.throttle(settings.throttle, checkViewport));
+            $(window).on('scroll.exopiteInViewPort resize.exopiteInViewPort', $.throttle(settings.throttle, checkViewport));
             checkViewport();
         });
     };
