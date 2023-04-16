@@ -1,18 +1,24 @@
 # ExopiteInViewPort
-jQuery plugin to check if element is in viewport.
+
+## jQuery plugin to check if the element is in the viewport.
+
+This is a self-contained jQuery plugin that helps to check if an element parcally of fully is in the viewport or not.
+
+It provides a set of customizable callbacks to respond to various events:
+
+- onInit: called when the plugin is initialized for an element
+- onEnter: called when an element enters the viewport, with an optional direction parameter ('top' or 'bottom')
+- onLeft: called when an element leaves the viewport, with an optional direction parameter ('top' or 'bottom')<br>
+  *eg.: if you want some animation or style the "reset", but only if it is not visivle anymore.*
+- onWholeInside: called when an element is fully inside the viewport or when it leaves the viewport<br>
+  *eg.: if you want to start an animation only if the whole element is visible.*
+
+The plugin is implemented as a jQuery plugin, which means it can be called on a jQuery object representing an element. The plugin stores its instance as data on the element to ensure that only one instance is created per element.
+
+The plugin works by binding a scroll event to the window, and then checking the position of the element relative to the viewport on every scroll event. It uses throttling to reduce the frequency of checks, which improves performance.
 
 ## Why?
 I am looking for a jQuery plugin that can detect when an element enters or leaves the viewport, as well as the direction of entry/exit. It is important that the plugin utilizes scroll throttling and has a small JavaScript file size. Additionally, I would like to be able to check when the entire element is in the viewport.
-
-## Triggers for the element
-- onEnter with direction (top, bottom)<br>
-  To check, when the element or a part is already entered in viewport
-- onLeft with direction (top, bottom)<br>
-  To check, when the element or a part is left the viewport<br>
-  *eg.: if you want some animation or style the "reset", but only if it is not visivle anymore.*
-- onWholeInside<br>
-  To check, if the whole element is in the viewport<br>
-  *eg.: if you want to start an animation only if the whole element is visible.*
 
 ## Why Throttling
 Throttling is a technique used to limit the number of times a function gets executed over a given time period. It can be useful when working with events that can trigger a high number of function calls within a short period, such as scrolling or resizing events.
@@ -21,8 +27,11 @@ Using a throttle function can help to optimize the performance of a web applicat
 
 For example, imagine a scroll event that triggers a function that calculates the position of an element relative to the viewport. Without throttling, this function would be called many times as the user scrolls, potentially slowing down the application. Throttling the function can limit the number of calls made to the function, allowing it to run smoothly without putting unnecessary strain on the application.
 
-### How to use:
+## How to use:
+### Light version
+jquery.exopiteinviewport.light.min.js
 ```php
+var selector = '.my-class';
 $( selector ).exopiteInViewPort({
     onEnter: function(element, direction) {
         // The element is entered the viewport
@@ -60,6 +69,66 @@ $( selector ).exopiteInViewPort({
     paddingBottom: 0 // padding bottom to viewport
 });
 ```
+
+### Normal version
+```php
+var selector = '.my-class';
+var exopiteInViewPortSettings = {
+    onInit: function(element, direction) {
+        console.log('exopiteInViewPort loaded');
+    },
+    onEnter: function(element, direction) {
+        // The element is entered the viewport
+        console.log('Element entered from ' + direction);
+    },
+    onLeft: function(element, direction) {
+        // The element is leaved the viewport
+        console.log('Element left to ' + direction);
+    },
+    onWholeInside: function(element, inViewport) {
+        /**
+         * This is true only if the whole element is in viewport
+         * If any part of the element is not visible, this is false.
+         * This function is for check if the element is fully in viewport
+         */
+
+        if (inViewport) {
+            console.log('The full element is inside the viewport');
+        } else {
+            console.log('The full or part of element is outside the viewport');
+        }
+
+    },
+    offset: 0,
+    throttle: 50,
+    paddingTop: 0,
+    paddingBottom: 0
+};
+
+// initialize
+$(selector).exopiteInViewPort(exopiteInViewPortSettings);
+
+// dinamically added elements, e.g.:
+
+// - create the new element
+var newElement = $('<div>', {
+    'class': 'my-class'
+    // ...
+}).html('<p>Content</p>');
+
+// - add the new elemet to the page
+$('body').append(newElement);
+
+// - initialize the plugin for the new element with the existing settings
+newElement.exopiteInViewPort(exopiteInViewPortSettings);
+
+// remove
+$(selector).exopiteInViewPort('destroy');
+// - or
+$(selector).data('plugin_exopiteInViewPort').destroy();
+
+```
+
 ### LICENSE DETAILS
 
 The GPL license of Sticky anything without cloning it grants you the right to use, study, share (copy), modify and (re)distribute the software, as long as these license terms are retained.
