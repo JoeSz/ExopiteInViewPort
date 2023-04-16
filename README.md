@@ -2,7 +2,7 @@
 
 ## jQuery plugin to check if the element is in the viewport.
 
-This is a self-contained jQuery plugin that helps to check if an element parcally of fully is in the viewport or not.
+This is a self-contained jQuery plugin that helps you to check if an element is partially or fully in the viewport or not.
 
 It provides a set of customizable callbacks to respond to various events:
 
