@@ -42,7 +42,7 @@
         },
         bindEvents: function () {
             var plugin = this;
-            $(window).on('scroll' + '.' + plugin._name, plugin.throttle(plugin.settings.throttle, function () {
+            $(window).on('scroll' + '.' + plugin._name + ' ' + 'resize' + '.' + plugin._name, plugin.throttle(plugin.settings.throttle, function () {
                 plugin.checkViewport();
             }));
         },
