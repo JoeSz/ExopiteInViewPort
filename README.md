@@ -96,9 +96,9 @@ var exopiteInViewPortSettings = {
         if (inViewport) {
 
             if (biggerThenViewport) {
+                // The element is larger than the viewport and covers it
                 console.log('The element is covering the viewport');
             } else {
-                // The element is larger than the viewport and covers it
                 console.log('The whole element is inside the viewport');
             }
 
