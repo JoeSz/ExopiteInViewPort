@@ -92,7 +92,7 @@ var exopiteInViewPortSettings = {
         // The element is leaved the viewport
         console.log('Element left to ' + direction);
     },
-    onWholeInside: function(element, inViewport, biggerThenViewport) {
+    onWholeInside: function(element, inViewport, coverTheViewport) {
         /**
          * This is true only if the whole element is in viewport
          * If any part of the element is not visible, this is false.
@@ -101,7 +101,7 @@ var exopiteInViewPortSettings = {
 
         if (inViewport) {
 
-            if (biggerThenViewport) {
+            if (coverTheViewport) {
                 // The element is larger than the viewport and covers it
                 console.log('The element is covering the viewport');
             } else {
