@@ -38,11 +38,16 @@
             plugin.settings.onInit.call(this, plugin.$element);
             plugin.buildCache();
             plugin.bindEvents();
+            plugin.setDimensions();
             plugin.checkViewport();
         },
         bindEvents: function () {
             var plugin = this;
-            $(window).on('scroll' + '.' + plugin._name + ' ' + 'resize' + '.' + plugin._name, plugin.throttle(plugin.settings.throttle, function () {
+            $(window).on('scroll' + '.' + plugin._name, plugin.throttle(plugin.settings.throttle, function () {
+                plugin.checkViewport();
+            }));
+            $(window).on('resize' + '.' + plugin._name, plugin.throttle(150, function () {
+                plugin.setDimensions();
                 plugin.checkViewport();
             }));
         },
@@ -71,26 +76,40 @@
                 }
             };
         },
+        setDimensions: function() {
+            // Caching
+            // We do not need calculate this on every scroll event, because those will not change,
+            // but need to recalculate if resize
+            var plugin = this;
+            plugin.viewportHeight = $(window).height();
+            plugin.elementHeight = this.$element.outerHeight();
+            plugin.elementTop = this.$element.offset().top + this.settings.offset;
+            plugin.elementBottom = plugin.elementTop + plugin.elementHeight;
+        },
         checkViewport: function () {
             var plugin = this;
             var viewportTop = $(window).scrollTop() + plugin.settings.paddingTop;
-            var viewportBottom = viewportTop + $(window).height() - plugin.settings.paddingBottom;
-            var elementTop = this.$element.offset().top + this.settings.offset;
-            var elementBottom = elementTop + this.$element.outerHeight();
+            var viewportBottom = viewportTop + plugin.viewportHeight - plugin.settings.paddingBottom;
 
-            if (elementBottom > viewportTop && elementTop < viewportBottom) {
+            if ((plugin.elementBottom > viewportTop && plugin.elementTop < viewportBottom) ||
+                (plugin.elementTop <= viewportTop && plugin.elementBottom >= viewportBottom) ||
+                (plugin.elementBottom < viewportBottom && plugin.elementTop > viewportTop && plugin.elementHeight > plugin.viewportHeight)) {
                 // Enter
 
-                if (elementTop >= viewportTop && elementBottom <= viewportBottom) {
-
+                if (plugin.elementTop >= viewportTop && plugin.elementBottom <= viewportBottom) {
                     if (!plugin.$element.data('inviewport')) {
                         plugin.$element.data('inviewport', true);
                         plugin.$element.data('partlyinviewport', false);
-                        plugin.settings.onWholeInside.call(this, plugin.$element, true);
+                        plugin.settings.onWholeInside.call(this, plugin.$element, true, false);
                     }
-
-                } else if (elementTop < viewportTop) {
-
+                } else if (plugin.elementTop <= viewportTop && plugin.elementBottom >= viewportBottom && plugin.elementHeight > plugin.viewportHeight) {
+                    // The element is larger than the viewport and covers it
+                    if (!plugin.$element.data('inviewport')) {
+                        plugin.$element.data('inviewport', true);
+                        plugin.$element.data('partlyinviewport', false);
+                        plugin.settings.onWholeInside.call(this, plugin.$element, true, true);
+                    }
+                } else if (plugin.elementTop < viewportTop) {
                     if (!plugin.$element.data('partlyinviewport')) {
                         plugin.$element.data('partlyinviewport', true);
 
@@ -102,9 +121,7 @@
 
                         plugin.$element.data('inviewport', false);
                     }
-
-                } else if (elementBottom > viewportBottom) {
-
+                } else if (plugin.elementBottom > viewportBottom) {
                     if (!plugin.$element.data('partlyinviewport')) {
                         plugin.$element.data('partlyinviewport', true);
 
@@ -116,7 +133,8 @@
 
                         plugin.$element.data('inviewport', false);
                     }
-
+                } else {
+                    console.log('Unknown');
                 }
 
             } else {
@@ -129,9 +147,9 @@
                     plugin.$element.data('inviewport', false);
                     plugin.$element.data('partlyinviewport', false);
 
-                    if (elementTop > viewportBottom) {
+                    if (plugin.elementTop > viewportBottom) {
                         plugin.settings.onLeft.call(this, plugin.$element, 'bottom');
-                    } else if (elementBottom < viewportTop) {
+                    } else if (plugin.elementBottom < viewportTop) {
                         plugin.settings.onLeft.call(this, plugin.$element, 'top');
                     }
 
