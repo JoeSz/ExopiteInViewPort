@@ -86,7 +86,7 @@ var exopiteInViewPortSettings = {
         // The element is leaved the viewport
         console.log('Element left to ' + direction);
     },
-    onWholeInside: function(element, inViewport) {
+    onWholeInside: function(element, inViewport, biggerThenViewport) {
         /**
          * This is true only if the whole element is in viewport
          * If any part of the element is not visible, this is false.
@@ -94,7 +94,14 @@ var exopiteInViewPortSettings = {
          */
 
         if (inViewport) {
-            console.log('The full element is inside the viewport');
+
+            if (biggerThenViewport) {
+                console.log('The element is covering the viewport');
+            } else {
+                // The element is larger than the viewport and covers it
+                console.log('The whole element is inside the viewport');
+            }
+
         } else {
             console.log('The full or part of element is outside the viewport');
         }
@@ -123,6 +130,9 @@ $('body').append(newElement);
 // - initialize the plugin for the new element with the existing settings
 newElement.exopiteInViewPort(exopiteInViewPortSettings);
 
+// refresh window and element dimensions
+$(selector).exopiteInViewPort('setDimensions');
+
 // remove
 $(selector).exopiteInViewPort('destroy');
 // - or
@@ -133,6 +143,10 @@ $(selector).data('plugin_exopiteInViewPort').destroy();
 - what if the element is bigger then viewport?
 
 ### CHANGELOG
+
+= 20230417 - 2019-04-17 =
+* Add condition and variable to detect if the element is larger than the viewport
+* Add caching, do not update window and document sizes when scrolling, only when resizing or calling the 'setDimensions' method.
 
 = 20230416 - 2019-04-16 =
 * Add light version
