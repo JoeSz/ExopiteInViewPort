@@ -140,7 +140,7 @@ $(selector).data('plugin_exopiteInViewPort').destroy();
 
 ```
 ### ToDos
-- what if the element is bigger then viewport?
+- none
 
 ### CHANGELOG
 
