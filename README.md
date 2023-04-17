@@ -10,7 +10,7 @@ It provides a set of customizable callbacks to respond to various events:
 - onEnter: called when an element enters the viewport, with an optional direction parameter ('top' or 'bottom')
 - onLeft: called when an element leaves the viewport, with an optional direction parameter ('top' or 'bottom')<br>
   *eg.: if you want some animation or style the "reset", but only if it is not visivle anymore.*
-- onWholeInside: called when an element is fully inside the viewport or when it leaves the viewport<br>
+- onWholeInside: is called when an element is entirely inside or larger and covers the viewport (true) or when it partially leaves the viewport (false)<br>
   *eg.: if you want to start an animation only if the whole element is visible.*
 
 The plugin is implemented as a jQuery plugin, which means it can be called on a jQuery object representing an element. The plugin stores its instance as data on the element to ensure that only one instance is created per element.
