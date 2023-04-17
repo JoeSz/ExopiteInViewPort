@@ -80,7 +80,13 @@ var exopiteInViewPortSettings = {
     },
     onEnter: function(element, direction) {
         // The element is entered the viewport
-        console.log('Element entered from ' + direction);
+
+        if ( direction == 'top' ) {
+            console.log('Element entered from top');
+        } else if  ( direction == 'bottom' ) {
+            console.log('Element entered from bottom');
+        }
+
     },
     onLeft: function(element, direction) {
         // The element is leaved the viewport
